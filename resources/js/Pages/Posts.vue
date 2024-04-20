@@ -2,6 +2,7 @@
 import { Head, Link, usePage } from "@inertiajs/vue3";
 import MainNavLayout from "@/Layouts/MainNavLayout.vue";
 import CreatePostBox from "@/Components/CreatePostBox.vue";
+import Post from "@/Components/Post.vue";
 
 import Magnify from "vue-material-design-icons/Magnify.vue";
 import TelevisionPlay from "vue-material-design-icons/TelevisionPlay.vue";
@@ -102,9 +103,10 @@ const user = usePage().props.auth.user;
                     class="row-span-6 max-w-[37.5rem] lg:mx-0 mx-auto overflow-auto"
                 >
                     <CreatePostBox
-                        image="https://picsum.photos/id/80/300/320"
+                        image="https://picsum.photos/id/87/300/320"
                         placeholder="What's on your mind Slavcho Mitrov Dev"
                     />
+                    <Post />
                 </div>
 
                 <div id="RightSection" class="pl-4 md:block hidden">
