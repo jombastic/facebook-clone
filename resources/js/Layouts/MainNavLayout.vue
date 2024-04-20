@@ -31,7 +31,12 @@ let showMenu = ref(false);
         class="fixed z-50 w-full flex items-center justify-between h-[3.5rem] bg-white shadow-xl border-b"
     >
         <div id="NavLeft" class="flex items-center justify-start w-[16.25rem]">
-            <Link href="/" class="pl-3 min-w-[3.438rem]"> FB </Link>
+            <Link href="/" class="pl-3 min-w-[3.438rem]">
+                <img
+                    src="/images/icons/FacebookLogoCircle.png"
+                    class="w-[2.5rem]"
+                />
+            </Link>
             <div
                 class="flex items-center justify-center bg-[#EFF2F5] p-1 rounded-full h-[2.5rem] ml-2"
             >
@@ -170,7 +175,8 @@ let showMenu = ref(false);
                         </div>
                     </Link>
                     <div class="text-xs font-semibold p-2 pt-3 border-t mt-1">
-                        Privacy · Terms · Advertising · Ad Choices · Cookies · More · Meta © {{ new Date().getFullYear() }}
+                        Privacy · Terms · Advertising · Ad Choices · Cookies ·
+                        More · Meta © {{ new Date().getFullYear() }}
                     </div>
                 </div>
             </div>
