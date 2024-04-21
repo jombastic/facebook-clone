@@ -120,7 +120,7 @@ const { isCropperModal, isImageDisplay } = storeToRefs(useGeneral);
                 </div>
             </div>
             <div
-                class="flex-col md:flex w-full max-w-[68.75rem] justify-between h-[calc(100%-3.5rem)] md:px-0 px-2 mx-auto"
+                class="md:flex w-full max-w-[1100px] justify-between h-[calc(100%-56px)] md:px-0 px-2 mx-auto"
             >
                 <div id="LeftSection" class="w-full md:w-5/12 mt-4 mr-4">
                     <div class="bg-white p-3 rounded-lg shadow-lg">
@@ -150,6 +150,10 @@ const { isCropperModal, isImageDisplay } = storeToRefs(useGeneral);
                         >
                             <span class="w-1/3">
                                 <img
+                                    @click="
+                                        isImageDisplay =
+                                            'https://picsum.photos/id/78/800/800'
+                                    "
                                     src="https://picsum.photos/id/78/300/300"
                                     class="aspect-square object-cover p-1 rounded-lg cursor-pointer"
                                 />

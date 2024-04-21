@@ -62,6 +62,7 @@ const form = reactive({ comment: null });
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </div>
         <img
+            @click="isImageDisplay = 'https://picsum.photos/id/189/800/800'"
             src="https://picsum.photos/id/189/800/800"
             class="mx-auto cursor-pointer"
         />

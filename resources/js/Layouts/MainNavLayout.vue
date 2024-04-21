@@ -15,6 +15,7 @@ import Bell from "vue-material-design-icons/Bell.vue";
 import Logout from "vue-material-design-icons/Logout.vue";
 
 import CropperModal from "@/Components/CropperModal.vue";
+import ImageDisplay from "@/Components/ImageDisplay.vue";
 
 import { useGeneralStore } from "@/stores/general";
 import { storeToRefs } from "pinia";
@@ -187,4 +188,6 @@ let showMenu = ref(false);
     <slot />
 
     <CropperModal v-if="isCropperModal" @showModal="isCropperModal = false" />
+
+    <ImageDisplay v-if="isImageDisplay"/>
 </template>
