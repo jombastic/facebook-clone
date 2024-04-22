@@ -38,6 +38,7 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'image' => '/images/user-placeholder.png',
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -46,6 +47,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('posts.index', absolute: false));
     }
 }
