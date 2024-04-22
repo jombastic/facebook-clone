@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AllPostsCollection;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,15 +14,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Posts');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $posts = Post::orderBy('created_at', 'desc')->get();
+        return Inertia::render('Posts', [
+            'posts' => new AllPostsCollection($posts)
+        ]);
     }
 
     /**
@@ -29,31 +25,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate(['text' => 'required']);
+        $post = new Post;
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        //
-    }
+        if ($request->hasFile('image')) {
+            $request->validate(['image' => 'required|mimes:jpg,jpeg,png']);
+            $post = (new ImageService)->updateImage($post, $request);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Post $post)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Post $post)
-    {
-        //
+        $post->user_id = auth()->user()->id;
+        $post->text = $request->input('text');
+        $post->save();
     }
 
     /**
