@@ -8,9 +8,9 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class AllPostsCollection extends ResourceCollection
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource collection.
      *
-     * @return array<int|string, mixed>
+     * @return \Illuminate\Support\Collection
      */
     public function toArray(Request $request)
     {
