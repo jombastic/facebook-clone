@@ -50,6 +50,7 @@ const names = [
     { id: 16, name: "Elizabeth Olsen", picId: 455 },
 ];
 
+defineProps({ posts: Object });
 const user = usePage().props.auth.user;
 </script>
 
@@ -106,7 +107,13 @@ const user = usePage().props.auth.user;
                         image="https://picsum.photos/id/87/300/320"
                         placeholder="What's on your mind Slavcho Mitrov Dev"
                     />
-                    <Post />
+                    <div v-for="post in posts.data" :key="post">
+                        <Post
+                            :user="post.user"
+                            :post="post"
+                            :comments="post.comments"
+                        />
+                    </div>
                 </div>
 
                 <div id="RightSection" class="pl-4 md:block hidden">

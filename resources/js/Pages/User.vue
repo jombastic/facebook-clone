@@ -1,5 +1,5 @@
 <script setup>
-import { Link, Head } from "@inertiajs/vue3";
+import { Link, Head, usePage } from "@inertiajs/vue3";
 import MainNavLayout from "@/Layouts/MainNavLayout.vue";
 import CreatePostBox from "@/Components/CreatePostBox.vue";
 import Post from "@/Components/Post.vue";
@@ -12,7 +12,8 @@ import { storeToRefs } from "pinia";
 const useGeneral = useGeneralStore();
 const { isCropperModal, isImageDisplay } = storeToRefs(useGeneral);
 
-// defineProps({ posts: Object, user: Object });
+const loggedUser = usePage().props.auth.user;
+defineProps({ posts: Object, user: Object });
 </script>
 
 <template>
@@ -35,10 +36,11 @@ const { isCropperModal, isImageDisplay } = storeToRefs(useGeneral);
                         >
                             <div class="relative">
                                 <img
-                                    src="https://picsum.photos/id/200/500/500"
                                     class="rounded-full w-[165px] border-white border-4"
+                                    :src="user.image"
                                 />
                                 <button
+                                    v-if="loggedUser.id === user.id"
                                     @click="isCropperModal = true"
                                     class="absolute right-0 top-[100px] bg-gray-200 hover:bg-gray-300 p-1.5 rounded-full cursor-pointer"
                                 >
@@ -47,7 +49,7 @@ const { isCropperModal, isImageDisplay } = storeToRefs(useGeneral);
                             </div>
                             <div class="md:mt-4 text-center md:text-left -mt-3">
                                 <div class="text-[20px] font-extrabold pt-1">
-                                    Slavcho Mitrov Dev
+                                    {{ user.name }}
                                 </div>
                                 <div
                                     class="text-[17px] font-bold text-gray-600 mb-1.5 text-center md:text-left"
@@ -78,7 +80,8 @@ const { isCropperModal, isImageDisplay } = storeToRefs(useGeneral);
                             </div>
                         </div>
                         <Link
-                            href="/"
+                            v-if="loggedUser.id === user.id"
+                            :href="route('profile.edit')"
                             class="flex justify-center w-7/12 md:w-[10rem] items-baseline md:my-0 my-4 bg-gray-200 hover:bg-gray-300 rounded-lg cursor-pointer"
                         >
                             <button
@@ -148,13 +151,15 @@ const { isCropperModal, isImageDisplay } = storeToRefs(useGeneral);
                         <div
                             class="flex flex-wrap items-center justify-start w-full"
                         >
-                            <span class="w-1/3">
+                            <span
+                                v-for="photo in posts.data"
+                                :key="photo"
+                                class="w-1/3"
+                            >
                                 <img
-                                    @click="
-                                        isImageDisplay =
-                                            'https://picsum.photos/id/78/800/800'
-                                    "
-                                    src="https://picsum.photos/id/78/300/300"
+                                    v-if="photo.image"
+                                    @click="isImageDisplay = photo.image"
+                                    :src="photo.image"
                                     class="aspect-square object-cover p-1 rounded-lg cursor-pointer"
                                 />
                             </span>
@@ -163,10 +168,13 @@ const { isCropperModal, isImageDisplay } = storeToRefs(useGeneral);
                 </div>
                 <div id="PostsSection" class="w-full md:w-7/12 overflow-auto">
                     <CreatePostBox
-                        image="https://picsum.photos/id/87/300/320"
-                        placeholder="What's on your mind Slavcho Mitrov Dev"
+                        v-if="loggedUser.id === user.id"
+                        :image="user.image"
+                        :placeholder="`What's on your mind ${user.name}`"
                     />
-                    <Post />
+                    <div v-for="post in posts.data" :key="post">
+                        <Post :user="post.user" :post="post" :comments="post.comments" />
+                    </div>
                 </div>
             </div>
         </div>

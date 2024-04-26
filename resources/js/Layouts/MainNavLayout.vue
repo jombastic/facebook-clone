@@ -144,25 +144,26 @@ let showMenu = ref(false);
             <div class="flex items-center justify-center relative">
                 <button @click="showMenu = !showMenu">
                     <img
-                        src="https://picsum.photos/id/87/300/320"
+                        :src="user.image"
                         class="rounded-full ml-1 min-w-[2.5rem] max-h-[2.5rem] cursor-pointer"
-                        alt=""
                     />
                 </button>
                 <div
                     v-if="showMenu"
                     class="absolute bg-white shadow-xl top-10 right-0 w-[20.625rem] rounded-lg p-1 border mt-1"
                 >
-                    <Link href="/" @click="showMenu = !showMenu">
+                    <Link
+                        :href="route('user.show', { id: user.id })"
+                        @click="showMenu = !showMenu"
+                    >
                         <div
                             class="flex items-center gap-3 hover:bg-gray-200 p-2 rounded-lg"
                         >
                             <img
-                                src="https://picsum.photos/id/87/300/320"
+                                :src="user.image"
                                 class="rounded-full ml-1 min-w-[2.188rem] max-h-[2.188rem] cursor-pointer"
-                                alt=""
                             />
-                            <span>Slavcho Mitrov Dev</span>
+                            <span>{{ user.name }}</span>
                         </div>
                     </Link>
                     <Link
@@ -188,9 +189,12 @@ let showMenu = ref(false);
     </div>
     <slot />
 
-    <CreatePostOverlay v-if="isPostOverlay" @showModal="isPostOverlay = false" />
+    <CreatePostOverlay
+        v-if="isPostOverlay"
+        @showModal="isPostOverlay = false"
+    />
 
     <CropperModal v-if="isCropperModal" @showModal="isCropperModal = false" />
 
-    <ImageDisplay v-if="isImageDisplay"/>
+    <ImageDisplay v-if="isImageDisplay" />
 </template>
