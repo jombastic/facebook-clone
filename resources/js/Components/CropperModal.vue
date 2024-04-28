@@ -24,22 +24,27 @@ let croppedImageData = {
 
 const getUploadedImage = (e) => {
     const file = e.target.files[0];
-    uploadedImage.value = URL.createObjectURL(file);
+
+    if (file && /^image\/(jpeg|jpg|png)$/.test(file.type)) {
+        uploadedImage.value = URL.createObjectURL(file);
+    }
 };
 
 const crop = () => {
     const { coordinates, canvas } = cropper.value.getResult();
+    if (!canvas) return;
     croppedImageData.imageUrl = canvas.toDataURL();
-    console.log(croppedImageData.imageUrl)
 
     let data = new FormData();
-    data.append("image", fileInput.value.files[0] || "");
-    data.append("height", coordinates.height || "");
-    data.append("width", coordinates.width || "");
-    data.append("left", coordinates.left || "");
-    data.append("top", coordinates.top || "");
+    data.append("image", fileInput.value.files[0]);
+    data.append("height", coordinates.height);
+    data.append("width", coordinates.width);
+    data.append("left", coordinates.left);
+    data.append("top", coordinates.top);
 
-    // Send to backend
+    router.post(route("user.updateImage"), data, {
+        preserveState: false,
+    });
 
     emit("showModal", false);
 };

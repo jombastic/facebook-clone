@@ -151,18 +151,14 @@ defineProps({ posts: Object, user: Object });
                         <div
                             class="flex flex-wrap items-center justify-start w-full"
                         >
-                            <span
-                                v-for="photo in posts.data"
-                                :key="photo"
-                                class="w-1/3"
-                            >
+                            <template v-for="photo in posts.data" :key="photo">
                                 <img
                                     v-if="photo.image"
                                     @click="isImageDisplay = photo.image"
                                     :src="photo.image"
-                                    class="aspect-square object-cover p-1 rounded-lg cursor-pointer"
+                                    class="w-1/3 aspect-square object-cover p-1 rounded-lg cursor-pointer"
                                 />
-                            </span>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -173,7 +169,11 @@ defineProps({ posts: Object, user: Object });
                         :placeholder="`What's on your mind ${user.name}`"
                     />
                     <div v-for="post in posts.data" :key="post">
-                        <Post :user="post.user" :post="post" :comments="post.comments" />
+                        <Post
+                            :user="post.user"
+                            :post="post"
+                            :comments="post.comments"
+                        />
                     </div>
                 </div>
             </div>

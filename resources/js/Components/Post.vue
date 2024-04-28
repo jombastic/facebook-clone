@@ -81,6 +81,8 @@ const isUser = () => {
                 </div>
                 <div class="flex items-center">
                     <button
+                        v-if="loggedUser.id === post.user.id"
+                        @click="deletePost(post.id)"
                         class="rounded-full p-1.5 cursor-pointer hover:bg-[#F2F2F2]"
                     >
                         <Delete fillColor="#646768" />
@@ -149,7 +151,12 @@ const isUser = () => {
                         class="flex items-center justify-between pb-2"
                     >
                         <div class="flex items-center w-full mb-1">
-                            <Link :href="route('posts.index')" class="mr-2">
+                            <Link
+                                :href="
+                                    route('user.show', { id: comment.user.id })
+                                "
+                                class="mr-2"
+                            >
                                 <img
                                     :src="comment.user.image"
                                     class="rounded-full ml-1 min-w-[2.25rem] max-h-[2.25rem]"

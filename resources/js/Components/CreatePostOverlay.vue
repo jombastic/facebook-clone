@@ -27,6 +27,23 @@ const form = reactive({
 });
 let error = ref(null);
 
+const createPost = () => {
+    router.post(route("post.store"), form, {
+        forceFormData: true,
+        preserveScroll: true,
+        onError: (errors) => {
+            errors && errors.text ? (error.value = errors.text) : "";
+            errors && errors.image ? (error.value = errors.image) : "";
+        },
+        onSuccess: () => {
+            form.text = null;
+            form.image = null;
+            imageDisplay.value = null;
+            emit("showModal", false);
+        },
+    });
+};
+
 const getUploadedImage = (e) => {
     imageDisplay.value = URL.createObjectURL(e.target.files[0]);
     form.image = e.target.files[0];
@@ -64,11 +81,13 @@ const clearImage = () => {
                     <div class="p-4">
                         <div class="flex items-center">
                             <img
-                                src="https://picsum.photos/id/78/800/800"
+                                :src="user.image"
                                 class="rounded-full ml-1 min-w-[2.8125rem] max-h-[2.8125rem]"
                             />
                             <div class="ml-4">
-                                <div class="font-extrabold">Slavcho Mitrov</div>
+                                <div class="font-extrabold">
+                                    {{ user.name }}
+                                </div>
                                 <div
                                     class="flex items-center justify-between w-[6.25rem] bg-gray-200 p-0.5 px-2 rounded-lg"
                                 >
@@ -163,6 +182,7 @@ const clearImage = () => {
                             </div>
                         </div>
                         <button
+                            @click="createPost"
                             class="w-full bg-blue-500 hover:bg-blue-600 text-white font-extrabold p-1.5 mt-3 rounded-lg"
                         >
                             Post
