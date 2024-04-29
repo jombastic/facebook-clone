@@ -38,18 +38,24 @@ Follow these steps to set up the project:
      sail artisan migrate
      ```
 
-5. **Starting the Project**:
+5. **Creating symlink to public storage**:
+   - Execute the following command to run create a symbolic link to the public storage folder:
+     ```bash
+     sail artisan storage:link
+     ```
+
+6. **Starting the Project**:
    - Start the project using:
      ```bash
      sail up -d
      ```
    - Alternatively, you can start the project directly from Docker.
 
-6. **To start server side rendering (SSR)**:
+7. **To start server side rendering (SSR)**:
    - In the terminal run `sail artisan inertia:start-ssr`.
    With the server running, you should be able to access your app within the browser with server-side rendering enabled. In fact, you should be able to disable JavaScript entirely and still navigate around your application.
 
-7. **Access the Application**:
+8. **Access the Application**:
    - Open your web browser and visit `localhost`.
 
 For additional details on installation, running commands, or connecting to the database, refer to the [Laravel Sail documentation](https://laravel.com/docs/11.x/sail).
