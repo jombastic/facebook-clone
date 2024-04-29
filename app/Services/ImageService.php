@@ -31,8 +31,8 @@ class ImageService
         }
 
         $name = time() . '.' . $extension;
-        $image->save(public_path() . '/images/' . $name);
-        $model->image = '/images/' . $name;
+        $image->save(storage_path('app/public/') . $name);
+        $model->image = '/storage/' . $name;
 
         return $model;
     }
