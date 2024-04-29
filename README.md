@@ -20,10 +20,19 @@ Follow these steps to set up the project:
      ```
    - This command sets up the necessary environment and installs all dependencies required for the project, ignoring platform requirements. Note: Do not install PHP, Apache, or similar beforehand on Windows as this command handles all necessary installations.
 
-3. **Using Laravel Sail**:
+3. **Starting the Project**:
+   - Start the project using:
+     ```bash
+     sail up -d
+     ```
+   - Alternatively, you can start the project directly from Docker.
+
+4. **Using Laravel Sail**:
    - Execute all commands (npm, php, composer, artisan) within the Dockerized application using the `./vendor/bin/sail` script. More on this [here](https://laravel.com/docs/11.x/sail#executing-sail-commands).
    - To configure a shell alias for easier use of the Laravel Sail script, see [Configuring a Shell Alias for Laravel Sail](https://laravel.com/docs/11.x/sail#configuring-a-shell-alias).
-   - Generate an `APP_KEY` by running:
+   
+5. **Generate APP_KEY**
+    - Generate an `APP_KEY` by running:
      ```bash
      ./vendor/bin/sail artisan key:generate
      ```
@@ -32,30 +41,26 @@ Follow these steps to set up the project:
      sail artisan key:generate
      ```
 
-4. **Database Migrations**:
+6. **Install npm and generate build folder**
+    - Run `sail npm install && sail npm run build` to create build folder
+
+7. **Database Migrations**:
    - Execute the following command to run database migrations:
      ```bash
      sail artisan migrate
      ```
 
-5. **Creating symlink to public storage**:
+8. **Creating symlink to public storage**:
    - Execute the following command to run create a symbolic link to the public storage folder:
      ```bash
      sail artisan storage:link
      ```
 
-6. **Starting the Project**:
-   - Start the project using:
-     ```bash
-     sail up -d
-     ```
-   - Alternatively, you can start the project directly from Docker.
-
-7. **To start server side rendering (SSR)**:
+9. **To start server side rendering (SSR)**:
    - In the terminal run `sail artisan inertia:start-ssr`.
    With the server running, you should be able to access your app within the browser with server-side rendering enabled. In fact, you should be able to disable JavaScript entirely and still navigate around your application.
 
-8. **Access the Application**:
+10. **Access the Application**:
    - Open your web browser and visit `localhost`.
 
 For additional details on installation, running commands, or connecting to the database, refer to the [Laravel Sail documentation](https://laravel.com/docs/11.x/sail).
