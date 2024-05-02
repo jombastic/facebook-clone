@@ -18,7 +18,7 @@ Follow these steps to set up the project:
          laravelsail/php83-composer:latest \
          composer install --ignore-platform-reqs
      ```
-   - This command sets up the necessary environment and installs all dependencies required for the project, ignoring platform requirements. Note: Do not install PHP, Apache, or similar beforehand on Windows as this command handles all necessary installations.
+   - This command sets up the necessary environment and installs all dependencies required for the project. Note: Do not install PHP, Apache, or similar beforehand on Windows as this command handles all necessary installations.
 
 3. **Starting the Project**:
    - Start the project using:
@@ -42,7 +42,10 @@ Follow these steps to set up the project:
      ```
 
 6. **Install npm and generate build folder**
-    - Run `sail npm install && sail npm run build` to create build folder
+    - Run the following command to create build folder:
+    ```bash
+    sail npm install && sail npm run build
+     ```
 
 7. **Database Migrations**:
    - Execute the following command to run database migrations:
@@ -57,11 +60,14 @@ Follow these steps to set up the project:
      ```
 
 9. **To start server side rendering (SSR)**:
-   - In the terminal run `sail artisan inertia:start-ssr`.
+   - In the terminal run:
+    ```bash
+   sail artisan inertia:start-ssr
+    ```
    With the server running, you should be able to access your app within the browser with server-side rendering enabled. In fact, you should be able to disable JavaScript entirely and still navigate around your application.
 
 10. **Access the Application**:
-   - Open your web browser and visit `localhost`.
+   - Open your web browser and visit `localhost` (or `localhost:<APP_PORT>`).
 
 For additional details on installation, running commands, or connecting to the database, refer to the [Laravel Sail documentation](https://laravel.com/docs/11.x/sail).
 
