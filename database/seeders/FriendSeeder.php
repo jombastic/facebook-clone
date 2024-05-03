@@ -13,6 +13,6 @@ class FriendSeeder extends Seeder
      */
     public function run(): void
     {
-        Friend::factory(50)->create();
+        Friend::factory(150)->create();
     }
 }

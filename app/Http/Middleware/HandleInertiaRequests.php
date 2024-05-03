@@ -30,6 +30,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user()?->friends; // forces the user to return the friends too when called in the array bellow
         return [
             ...parent::share($request),
             'auth' => [

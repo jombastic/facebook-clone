@@ -19,6 +19,7 @@ class FriendFactory extends Factory
         return [
             'firstname' => $this->faker->firstName(),
             'lastname' => $this->faker->lastName(),
+            'picId' => $this->faker->randomNumber(3, true),
         ];
     }
 }

@@ -22,9 +22,6 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(FriendSeeder::class);
-        $times = rand(1, 10);
-        for ($i = 0; $i < $times; $i++) {
-            $this->call(UserFriendSeeder::class);
-        }
+        // $this->call(UserFriendSeeder::class);
     }
 }
