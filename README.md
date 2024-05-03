@@ -50,7 +50,7 @@ Follow these steps to set up the project:
 7. **Database Migrations**:
    - Execute the following command to run database migrations:
      ```bash
-     sail artisan migrate
+     sail artisan migrate --seed
      ```
 
 8. **Creating symlink to public storage**:
