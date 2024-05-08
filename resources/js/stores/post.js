@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { isImage } from "@/helpers.js";
 
 export const usePostStore = defineStore("post", {
     state: () => ({
@@ -9,8 +10,11 @@ export const usePostStore = defineStore("post", {
     }),
     actions: {
         getUploadedImage(e) {
-            this.imageDisplay = URL.createObjectURL(e.target.files[0]);
-            this.image = e.target.files[0];
+            let imageFile = e.target.files[0];
+            if (isImage(imageFile)) {
+                this.imageDisplay = URL.createObjectURL(e.target.files[0]);
+                this.image = imageFile;
+            }
         },
         clearImage() {
             this.imageDisplay = null;

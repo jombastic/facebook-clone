@@ -8,6 +8,8 @@ import "vue-advanced-cropper/dist/style.css";
 import Close from "vue-material-design-icons/Close.vue";
 import Plus from "vue-material-design-icons/Plus.vue";
 
+import { isImage } from '@/helpers.js';
+
 const emit = defineEmits(["showModal"]);
 
 let fileInput = ref(null);
@@ -25,7 +27,7 @@ let croppedImageData = {
 const getUploadedImage = (e) => {
     const file = e.target.files[0];
 
-    if (file && /^image\/(jpeg|jpg|png)$/.test(file.type)) {
+    if (isImage(file)) {
         uploadedImage.value = URL.createObjectURL(file);
     }
 };
