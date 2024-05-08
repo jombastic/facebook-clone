@@ -12,15 +12,20 @@ const { isPostOverlay, isCropperModal, isImageDisplay } =
 </script>
 
 <template>
-    <NavMain />
-    <slot />
+    <div>
+        <NavMain />
+        <slot />
 
-    <CreatePostOverlay
-        v-if="isPostOverlay"
-        @showModal="isPostOverlay = false"
-    />
+        <CreatePostOverlay
+            v-if="isPostOverlay"
+            @showModal="isPostOverlay = false"
+        />
 
-    <CropperModal v-if="isCropperModal" @showModal="isCropperModal = false" />
+        <CropperModal
+            v-if="isCropperModal"
+            @showModal="isCropperModal = false"
+        />
 
-    <ImageDisplay v-if="isImageDisplay" />
+        <ImageDisplay v-if="isImageDisplay" />
+    </div>
 </template>

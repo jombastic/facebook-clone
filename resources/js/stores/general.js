@@ -6,5 +6,5 @@ export const useGeneralStore = defineStore("general", {
         isCropperModal: false,
         isImageDisplay: null,
     }),
-    persist: true,
+    // persist: true,
 });
