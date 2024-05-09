@@ -1,5 +1,5 @@
 <script setup>
-import { toRef, toRefs } from "vue";
+import { toRefs } from "vue";
 import { Link, usePage } from "@inertiajs/vue3";
 
 import VideoImage from "vue-material-design-icons/VideoImage.vue";

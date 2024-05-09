@@ -1,7 +1,8 @@
 <script setup>
 import { usePage } from "@inertiajs/vue3";
+
 import CreatePostBox from "@/Components/CreatePostBox.vue";
-import Post from "@/Components/Post.vue";
+import Post from "@/Components/Posts/Post.vue";
 
 defineProps({ posts: Object });
 const loggedUser = usePage().props.auth.user;

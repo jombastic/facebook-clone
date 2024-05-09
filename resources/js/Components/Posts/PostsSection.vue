@@ -1,7 +1,8 @@
 <script setup>
 import { usePage } from "@inertiajs/vue3";
-import Post from "../Post.vue";
-import CreatePostBox from "../CreatePostBox.vue";
+
+import CreatePostBox from "@/Components/CreatePostBox.vue";
+import Post from "@/Components/Post/Post.vue";
 
 defineProps({ posts: Object });
 const user = usePage().props.auth.user;
@@ -10,7 +11,7 @@ const user = usePage().props.auth.user;
 <template>
     <div
         id="PostsSection"
-        class="row-span-6 max-w-[37.5rem] lg:mx-0 mx-auto overflow-auto"
+        class="row-span-6 mx-auto max-w-[37.5rem] overflow-auto lg:mx-0"
     >
         <CreatePostBox
             :image="user.image"
