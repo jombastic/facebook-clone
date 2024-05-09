@@ -18,12 +18,10 @@ const { isPostOverlay, isCropperModal, isImageDisplay } =
 
         <CreatePostOverlay
             v-if="isPostOverlay"
-            @showModal="isPostOverlay = false"
         />
 
         <CropperModal
             v-if="isCropperModal"
-            @showModal="isCropperModal = false"
         />
 
         <ImageDisplay v-if="isImageDisplay" />

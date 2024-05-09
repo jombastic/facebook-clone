@@ -32,7 +32,7 @@ const createComment = () => {
             text: form.comment,
         },
         {
-            reserveScroll: true,
+            preserveScroll: true,
         }
     );
 };

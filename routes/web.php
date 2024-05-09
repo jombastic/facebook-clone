@@ -8,10 +8,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/user', function () {
-    return Inertia::render('User');
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/post', [PostController::class, 'store'])->name('post.store');

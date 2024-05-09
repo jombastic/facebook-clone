@@ -8,7 +8,12 @@ import "vue-advanced-cropper/dist/style.css";
 import Close from "vue-material-design-icons/Close.vue";
 import Plus from "vue-material-design-icons/Plus.vue";
 
-import { isImage } from '@/helpers.js';
+import { isImage } from "@/helpers.js";
+
+import { useGeneralStore } from "@/stores/general";
+import { storeToRefs } from "pinia";
+const useGeneral = useGeneralStore();
+const { isCropperModal } = storeToRefs(useGeneral);
 
 const emit = defineEmits(["showModal"]);
 
@@ -48,7 +53,7 @@ const crop = () => {
         preserveState: false,
     });
 
-    emit("showModal", false);
+    isCropperModal.value = false;
 };
 </script>
 
@@ -57,22 +62,22 @@ const crop = () => {
         <div class="fixed inset-0 bg-white bg-opacity-60">
             <div class="fixed inset-0 z-10 overflow-y-auto">
                 <div
-                    class="flex flex-col min-h-full justify-center items-center py-2"
+                    class="flex min-h-full flex-col items-center justify-center py-2"
                 >
                     <div
-                        class="transform overflow-hidden rounded-lg bg-white shadow-2xl transition-all max-w-xl"
+                        class="max-w-xl transform overflow-hidden rounded-lg bg-white shadow-2xl transition-all"
                     >
                         <div
-                            class="flex items-center py-4 border-b border-b-gray-200"
+                            class="flex items-center border-b border-b-gray-200 py-4"
                         >
                             <div
-                                class="text-[1.375rem] font-extrabold w-full text-center"
+                                class="w-full text-center text-[1.375rem] font-extrabold"
                             >
                                 Update profile picture
                             </div>
                             <div
-                                @click="$emit('showModal', false)"
-                                class="absolute right-3 rounded-full p-1.5 bg-gray-200 hover:bg-gray-300 cursor-pointer"
+                                @click="isCropperModal = false"
+                                class="absolute right-3 cursor-pointer rounded-full bg-gray-200 p-1.5 hover:bg-gray-300"
                             >
                                 <Close :size="28" fillColor="#5E6771" />
                             </div>
@@ -82,7 +87,7 @@ const crop = () => {
                                 <div class="my-4">
                                     <label
                                         for="image"
-                                        class="flex items-center justify-center bg-[#E7F3FF] hover:bg-[#DBE7F2] font-bold p-2 rounded-lg text-[#1977F2] w-full cursor-pointer"
+                                        class="flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#E7F3FF] p-2 font-bold text-[#1977F2] hover:bg-[#DBE7F2]"
                                     >
                                         <Plus :size="20" /> Upload photo
                                     </label>
@@ -94,7 +99,7 @@ const crop = () => {
                                         @change="getUploadedImage"
                                     />
                                 </div>
-                                <div class="w-[21.875rem] mx-auto">
+                                <div class="mx-auto w-[21.875rem]">
                                     <Cropper
                                         class="object-cover"
                                         ref="cropper"
@@ -107,9 +112,9 @@ const crop = () => {
                                     :class="uploadedImage ? ' pt-4' : ''"
                                 >
                                     <button
-                                        @click="$emit('showModal', false)"
+                                        @click="isCropperModal = false"
                                         type="button"
-                                        class="w-full justify-center rounded-md py-2 text-gray-600 hover:text-gray-800 font-bold hover:shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-0"
+                                        class="w-full justify-center rounded-md py-2 font-bold text-gray-600 hover:bg-gray-200 hover:text-gray-800 hover:shadow-sm focus:outline-none focus:ring-0"
                                     >
                                         Cancel
                                     </button>
@@ -117,7 +122,7 @@ const crop = () => {
                                         v-if="uploadedImage"
                                         @click="crop"
                                         type="button"
-                                        class="w-full rounded-md bg-blue-500 py-2 text-white font-bold shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-0"
+                                        class="w-full rounded-md bg-blue-500 py-2 font-bold text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-0"
                                     >
                                         Crop image
                                     </button>
