@@ -18,6 +18,7 @@ class UserController extends Controller
     {
         $posts = Post::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
         return Inertia::render('User', [
+            'user' => User::find(auth()->user()->id),
             'posts' => new AllPostsCollection($posts)
         ]);
     }
