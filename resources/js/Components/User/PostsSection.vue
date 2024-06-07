@@ -15,7 +15,7 @@ const loggedUser = usePage().props.auth.user;
             :image="user.image"
             :placeholder="`What's on your mind ${user.name}`"
         />
-        <div v-for="post in posts.data" :key="post">
+        <div v-for="post in posts" :key="post">
             <Post :user="post.user" :post="post" :comments="post.comments" />
         </div>
     </div>

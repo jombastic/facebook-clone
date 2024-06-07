@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\PostData;
 use App\Http\Resources\AllPostsCollection;
 use App\Models\Post;
 use App\Services\ImageService;
@@ -17,7 +18,7 @@ class PostController extends Controller
     {
         $posts = Post::orderBy('created_at', 'desc')->get();
         return Inertia::render('Posts', [
-            'posts' => new AllPostsCollection($posts)
+            'posts' => PostData::collect($posts)
         ]);
     }
 

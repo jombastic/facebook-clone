@@ -25,7 +25,7 @@ const { isImageDisplay } = storeToRefs(useGeneral);
         <div class="mt-4 rounded-lg bg-white p-3 shadow-lg">
             <div class="pb-2 text-xl font-extrabold">Photos</div>
             <div class="flex w-full flex-wrap items-center justify-start">
-                <template v-for="photo in posts.data" :key="photo">
+                <template v-for="photo in posts" :key="photo">
                     <img
                         v-if="photo.image"
                         @click="isImageDisplay = photo.image"

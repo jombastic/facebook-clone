@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\PostData;
 use App\Http\Resources\AllPostsCollection;
 use App\Models\Post;
 use App\Models\User;
@@ -19,7 +20,7 @@ class UserController extends Controller
         $posts = Post::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
         return Inertia::render('User', [
             'user' => User::find(auth()->user()->id),
-            'posts' => new AllPostsCollection($posts)
+            'posts' => PostData::collect($posts)
         ]);
     }
 
@@ -31,7 +32,7 @@ class UserController extends Controller
         $posts = Post::where('user_id', $id)->orderBy('created_at', 'desc')->get();
         return Inertia::render('User', [
             'user' => User::find($id),
-            'posts' => new AllPostsCollection($posts),
+            'posts' => PostData::collect($posts),
         ]);
     }
 
