@@ -7,12 +7,14 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\LaravelData\Attributes\WithTransformer;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Lazy;
 use Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer;
 
+/** @typescript */
 class PostData extends Data
 {
     /**
-     * @param Collection<int, CommentData> $comments
+     * @param Lazy|Collection<int, CommentData> $comments
      */
     public function __construct(
         public int $id,
@@ -20,7 +22,7 @@ class PostData extends Data
         public ?string $image,
         #[WithTransformer(DateTimeInterfaceTransformer::class, format: ' M D Y')]
         public Carbon $created_at,
-        public Collection $comments,
+        public Lazy|Collection $comments,
         public UserData $user
     ) {
     }
@@ -32,7 +34,7 @@ class PostData extends Data
             $post->text,
             $post->image,
             $post->created_at,
-            CommentData::collect($post->comments),
+            Lazy::create(fn() => CommentData::collect($post->comments))->defaultIncluded(),
             UserData::from($post->user)
         );
     }

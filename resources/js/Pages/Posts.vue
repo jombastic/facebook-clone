@@ -1,11 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import { Head } from "@inertiajs/vue3";
 import MainNavLayout from "@/Layouts/MainNavLayout.vue";
 import LeftSection from "@/Components/Posts/LeftSection.vue";
 import RightSection from "@/Components/Posts/RightSection.vue";
 import PostsSection from "@/Components/Posts/PostsSection.vue";
+import type { PostData } from "@/types/generated";
 
-defineProps({ posts: Object });
+const props = defineProps<({ posts: PostData[] })>();
+
+props.posts.forEach((post: PostData) => {
+});
 </script>
 
 <template>
