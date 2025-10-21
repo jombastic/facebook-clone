@@ -3,6 +3,7 @@ import ThumbUp from "vue-material-design-icons/ThumbUp.vue";
 
 import CreateComment from "./CreateComment.vue";
 import Comments from "./Comments.vue";
+import { WhenVisible } from "@inertiajs/vue3";
 
 const props = defineProps({
     user: Object,
@@ -23,7 +24,13 @@ const props = defineProps({
         <div id="Comments" class="px-3">
             <CreateComment :user="user" :post="post" />
 
-            <Comments :comments="comments" />
+            <WhenVisible data="comments" :params="{ post_id: post.id }">
+                <template #fallback>
+                    <div class="py-2 text-center">Loading comments...</div>
+                </template>
+
+                <Comments :comments="comments" />
+            </WhenVisible>
         </div>
     </div>
 </template>

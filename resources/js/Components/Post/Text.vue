@@ -14,8 +14,11 @@ const props = defineProps({
         {{ post.text }}
     </div>
     <img
-        @click="isImageDisplay = post.image"
-        class="mx-auto cursor-pointer"
+        v-if="post.image"
+        loading="lazy"
+        decoding="async"
+        class="mx-auto h-80 w-full cursor-pointer object-cover"
         :src="post.image"
+        @click="isImageDisplay = post.image"
     />
 </template>

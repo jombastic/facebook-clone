@@ -1,5 +1,6 @@
 <script setup>
-import { usePage } from "@inertiajs/vue3";
+import { usePage, WhenVisible } from "@inertiajs/vue3";
+
 import Post from "@/Components/Post/Post.vue";
 
 import { defineAsyncComponent } from "vue";
@@ -21,8 +22,21 @@ const user = usePage().props.auth.user;
             :image="user.image"
             :placeholder="`What's on your mind ${user.name}`"
         />
-        <div v-for="post in posts" :key="post">
-            <Post :user="post.user" :post="post" :comments="post.comments" />
-        </div>
+
+        <!-- <div style="height: 100vh; width: 100%"></div> -->
+
+        <WhenVisible data="posts">
+            <template #fallback>
+                <div>Loading...</div>
+            </template>
+
+            <div v-for="post in posts" :key="post.id">
+                <Post
+                    :user="post.user"
+                    :post="post"
+                    :comments="post.comments"
+                />
+            </div>
+        </WhenVisible>
     </div>
 </template>

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { Head } from "@inertiajs/vue3";
-import MainNavLayout from "@/Layouts/MainNavLayout.vue";
 import { defineAsyncComponent } from "vue";
 import type { PostData } from "@/types/generated";
+
+import MainNavLayout from "@/Layouts/MainNavLayout.vue";
+import PostsSection from "@/Components/Posts/PostsSection.vue";
 
 // Lazy load components
 const LeftSection = defineAsyncComponent(
@@ -10,9 +12,6 @@ const LeftSection = defineAsyncComponent(
 );
 const RightSection = defineAsyncComponent(
     () => import("@/Components/Posts/RightSection.vue"),
-);
-const PostsSection = defineAsyncComponent(
-    () => import("@/Components/Posts/PostsSection.vue"),
 );
 
 const props = defineProps<{ posts: PostData[] }>();
