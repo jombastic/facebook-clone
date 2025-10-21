@@ -24,6 +24,10 @@ const createComment = () => {
         },
         {
             preserveScroll: true,
+            onSuccess: () => {
+                // Reset the form after successful submission
+                form.comment = null;
+            },
         },
     );
 };
