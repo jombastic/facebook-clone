@@ -10,27 +10,31 @@ const user = usePage().props.auth.user;
 </script>
 
 <template>
-    <div class="flex items-center justify-center relative">
+    <div class="relative flex items-center justify-center">
         <button @click="showMenu = !showMenu">
             <img
+                loading="lazy"
+                decoding="async"
                 :src="user.image"
-                class="rounded-full ml-1 min-w-[2.5rem] max-h-[2.5rem] cursor-pointer"
+                class="ml-1 max-h-[2.5rem] min-w-[2.5rem] cursor-pointer rounded-full"
             />
         </button>
         <div
             v-if="showMenu"
-            class="absolute bg-white shadow-xl top-10 right-0 w-[20.625rem] rounded-lg p-1 border mt-1"
+            class="absolute right-0 top-10 mt-1 w-[20.625rem] rounded-lg border bg-white p-1 shadow-xl"
         >
             <Link
                 :href="route('user.show', { id: user.id })"
                 @click="showMenu = !showMenu"
             >
                 <div
-                    class="flex items-center gap-3 hover:bg-gray-200 p-2 rounded-lg"
+                    class="flex items-center gap-3 rounded-lg p-2 hover:bg-gray-200"
                 >
                     <img
+                        loading="lazy"
+                        decoding="async"
                         :src="user.image"
-                        class="rounded-full ml-1 min-w-[2.188rem] max-h-[2.188rem] cursor-pointer"
+                        class="ml-1 max-h-[2.188rem] min-w-[2.188rem] cursor-pointer rounded-full"
                     />
                     <span>{{ user.name }}</span>
                 </div>
@@ -42,13 +46,13 @@ const user = usePage().props.auth.user;
                 method="post"
             >
                 <div
-                    class="flex items-center gap-3 hover:bg-gray-200 px-2 py-2.5 rounded-lg"
+                    class="flex items-center gap-3 rounded-lg px-2 py-2.5 hover:bg-gray-200"
                 >
                     <Logout class="pl-2" :size="30" />
                     <span>Logout</span>
                 </div>
             </Link>
-            <div class="text-xs font-semibold p-2 pt-3 border-t mt-1">
+            <div class="mt-1 border-t p-2 pt-3 text-xs font-semibold">
                 Privacy · Terms · Advertising · Ad Choices · Cookies · More ·
                 Meta © {{ new Date().getFullYear() }}
             </div>

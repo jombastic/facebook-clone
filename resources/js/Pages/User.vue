@@ -1,10 +1,15 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
+import { defineAsyncComponent } from "vue";
 import MainNavLayout from "@/Layouts/MainNavLayout.vue";
-
-import TopSection from "@/Components/User/TopSection.vue";
-import LeftSection from "@/Components/User/LeftSection.vue";
 import PostsSection from "@/Components/Posts/PostsSection.vue";
+
+const TopSection = defineAsyncComponent(
+    () => import("@/Components/User/TopSection.vue"),
+);
+const LeftSection = defineAsyncComponent(
+    () => import("@/Components/User/LeftSection.vue"),
+);
 
 defineProps({ posts: Object, user: Object });
 </script>

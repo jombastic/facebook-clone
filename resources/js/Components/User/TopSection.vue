@@ -9,8 +9,10 @@ const tabs = ["Posts", "About", "Friends", "Videos", "Photos", "Check-ins"];
     <div class="w-full bg-white">
         <div class="mx-auto max-w-[68.75rem] pb-1 pt-[3.5rem]">
             <img
+                loading="lazy"
+                decoding="async"
                 src="https://picsum.photos/id/45/2000/320"
-                class="rounded-b-xl"
+                class="h-[11rem] w-full rounded-b-xl object-cover"
             />
             <ProfileInfo :user="user" />
             <div class="flex h-[3.125rem] border-t py-[.25rem]">

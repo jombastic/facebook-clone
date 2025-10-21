@@ -30,33 +30,35 @@ const buttons = [
 <template>
     <div
         id="CreatePostBox"
-        class="w-full bg-white rounded-lg px-3 mt-4 shadow-md"
+        class="mt-4 w-full rounded-lg bg-white px-3 shadow-md"
     >
-        <div class="flex items-center py-3 border-b">
+        <div class="flex items-center border-b py-3">
             <Link :href="route('user.show', { id: user.id })" class="mr-2">
                 <img
+                    loading="lazy"
+                    decoding="async"
                     :src="image"
-                    class="rounded-full ml-1 min-w-[2.25rem] max-h-[2.25rem]"
+                    class="ml-1 max-h-[2.25rem] min-w-[2.25rem] rounded-full"
                 />
             </Link>
             <div
                 @click="isPostOverlay = true"
-                class="flex items-center justify-start bg-[#EFF2F5] p-2 rounded-full w-full cursor-pointer"
+                class="flex w-full cursor-pointer items-center justify-start rounded-full bg-[#EFF2F5] p-2"
             >
-                <div class="text-left pl-2">{{ placeholder }}</div>
+                <div class="pl-2 text-left">{{ placeholder }}</div>
             </div>
         </div>
-        <div class="flex items-center py-3 border-b">
+        <div class="flex items-center border-b py-3">
             <template v-for="(button, index) in buttons" :key="index">
                 <button
-                    class="flex items-center justify-normal p-1 hover:bg-[#F2F2F2] w-full rounded-lg mx-1 cursor-pointer"
+                    class="mx-1 flex w-full cursor-pointer items-center justify-normal rounded-lg p-1 hover:bg-[#F2F2F2]"
                 >
                     <component
                         :is="button.icon"
                         :size="35"
                         :fillColor="button.color"
                     />
-                    <div class="text-[#6F7275] font-bold">
+                    <div class="font-bold text-[#6F7275]">
                         {{ button.text }}
                     </div>
                 </button>
