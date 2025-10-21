@@ -1,28 +1,32 @@
 <script setup lang="ts">
 import { Head } from "@inertiajs/vue3";
 import MainNavLayout from "@/Layouts/MainNavLayout.vue";
-import LeftSection from "@/Components/Posts/LeftSection.vue";
-import RightSection from "@/Components/Posts/RightSection.vue";
-import PostsSection from "@/Components/Posts/PostsSection.vue";
+import { defineAsyncComponent } from "vue";
 import type { PostData } from "@/types/generated";
 
-const props = defineProps<({ posts: PostData[] })>();
+// Lazy load components
+const LeftSection = defineAsyncComponent(
+    () => import("@/Components/Posts/LeftSection.vue"),
+);
+const RightSection = defineAsyncComponent(
+    () => import("@/Components/Posts/RightSection.vue"),
+);
+const PostsSection = defineAsyncComponent(
+    () => import("@/Components/Posts/PostsSection.vue"),
+);
 
-props.posts.forEach((post: PostData) => {
-});
+const props = defineProps<{ posts: PostData[] }>();
 </script>
 
 <template>
     <Head title="Posts" />
-
     <MainNavLayout>
-        <div class="fixed w-full h-full bg-[#F1F2F5]">
+        <div class="fixed h-full w-full bg-[#F1F2F5]">
             <div
-                class="grid grid-rows-3 grid-flow-col w-full max-w-[100rem] mt-[3.5rem] h-[calc(100%-3.5rem)] mx-auto px-4"
+                class="mx-auto mt-[3.5rem] grid h-[calc(100%-3.5rem)] w-full max-w-[100rem] grid-flow-col grid-rows-3 px-4"
             >
                 <LeftSection />
                 <PostsSection :posts="posts" />
-
                 <RightSection />
             </div>
         </div>
