@@ -14,6 +14,7 @@ use Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer;
 class PostData extends Data
 {
     /**
+     * @param Lazy|UserData $user
      * @param Lazy|Collection<int, CommentData> $comments
      */
     public function __construct(
@@ -22,10 +23,9 @@ class PostData extends Data
         public ?string $image,
         #[WithTransformer(DateTimeInterfaceTransformer::class, format: ' M D Y')]
         public Carbon $created_at,
+        public Lazy|UserData $user,
         public Lazy|Collection $comments,
-        public UserData $user
-    ) {
-    }
+    ) {}
 
     public static function fromModel(Post $post): self
     {
@@ -34,8 +34,8 @@ class PostData extends Data
             $post->text,
             $post->image,
             $post->created_at,
-            Lazy::create(fn() => CommentData::collect($post->comments))->defaultIncluded(),
-            UserData::from($post->user)
+            Lazy::create(fn() => UserData::from($post->user)),
+            Lazy::create(fn() => CommentData::collect($post->comments)),
         );
     }
 }

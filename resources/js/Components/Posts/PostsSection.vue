@@ -1,5 +1,5 @@
 <script setup>
-import { usePage, WhenVisible } from "@inertiajs/vue3";
+import { usePage } from "@inertiajs/vue3";
 
 import Post from "@/Components/Post/Post.vue";
 
@@ -25,18 +25,8 @@ const user = usePage().props.auth.user;
 
         <!-- <div style="height: 100vh; width: 100%"></div> -->
 
-        <WhenVisible data="posts">
-            <template #fallback>
-                <div>Loading...</div>
-            </template>
-
-            <div v-for="post in posts" :key="post.id">
-                <Post
-                    :user="post.user"
-                    :post="post"
-                    :comments="post.comments"
-                />
-            </div>
-        </WhenVisible>
+        <div v-for="post in posts" :key="post.id">
+            <Post :user="post.user" :post="post" :comments="post.comments" />
+        </div>
     </div>
 </template>

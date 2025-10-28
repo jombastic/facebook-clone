@@ -10,6 +10,7 @@
         "intervention/image-laravel": "^1.2",
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
+        "laravel/telescope": "^5.14",
         "laravel/tinker": "^2.9",
         "spatie/enum": "^3.13",
         "spatie/laravel-data": "^4.6",
@@ -18,6 +19,7 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "laravel/boost": "^1.5",
         "laravel/breeze": "^2.0",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",

@@ -14,8 +14,8 @@ const friends = usePage().props.auth.user?.friends;
 </script>
 
 <template>
-    <div id="RightSection" class="pl-4 md:block hidden">
-        <div class="max-w-[21.25rem] min-w-[15.625rem] mx-auto pt-4">
+    <div id="RightSection" class="hidden pl-4 md:block">
+        <div class="mx-auto min-w-[15.625rem] max-w-[21.25rem] pt-4">
             <div
                 class="flex items-center justify-between border-b border-b-gray-300"
             >
@@ -23,7 +23,7 @@ const friends = usePage().props.auth.user?.friends;
                 <div class="flex items-center">
                     <template v-for="(icon, index) in searchIcons" :key="index">
                         <div
-                            class="p-2 hover:bg-gray-300 rounded-full cursor-pointer"
+                            class="cursor-pointer rounded-full p-2 hover:bg-gray-300"
                         >
                             <component
                                 :is="icon.component"
@@ -37,16 +37,18 @@ const friends = usePage().props.auth.user?.friends;
             <div class="h-[calc(100vh-7.1875rem)] overflow-auto pt-2">
                 <template v-for="friend in friends" :key="friend.id">
                     <div
-                        class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md"
+                        class="flex cursor-pointer items-center justify-start rounded-md py-2 hover:bg-[#E5E6E9]"
                     >
                         <img
+                            loading="lazy"
+                            decoding="async"
                             :src="`https://picsum.photos/id/${friend.picId}/300/320`"
-                            class="rounded-full ml-1 min-w-[2.375rem] max-h-[2.375rem]"
+                            class="ml-1 max-h-[2.375rem] min-w-[2.375rem] rounded-full"
                         />
                         <div
-                            class="text-[0.938rem] text-gray-800 font-extrabold pl-3"
+                            class="pl-3 text-[0.938rem] font-extrabold text-gray-800"
                         >
-                            {{ friend.firstname }} {{friend.lastname}}
+                            {{ friend.firstname }} {{ friend.lastname }}
                         </div>
                     </div>
                 </template>

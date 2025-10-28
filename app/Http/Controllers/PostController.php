@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Data\PostData;
-use App\Http\Resources\AllPostsCollection;
 use App\Models\Post;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\LaravelData\DataCollection;
 
 class PostController extends Controller
 {
@@ -16,9 +16,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Post::with(['comments.user', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->get();
         return Inertia::render('Posts', [
-            'posts' => PostData::collect($posts)
+            'posts' => PostData::collect($posts, DataCollection::class)->include('comments.user', 'user')
         ]);
     }
 

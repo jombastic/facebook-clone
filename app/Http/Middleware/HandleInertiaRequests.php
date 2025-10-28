@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Data\UserData;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -30,11 +31,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $user = $request->user()?->friends; // forces the user to return the friends too when called in the array bellow
+        $user = $request->user()?->load('friends');
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user ? UserData::from($user)->include('friends') : null,
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),

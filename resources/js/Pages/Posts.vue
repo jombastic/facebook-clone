@@ -14,7 +14,7 @@ const RightSection = defineAsyncComponent(
     () => import("@/Components/Posts/RightSection.vue"),
 );
 
-const props = defineProps<{ posts: PostData[] }>();
+defineProps<{ posts: PostData[] }>();
 </script>
 
 <template>

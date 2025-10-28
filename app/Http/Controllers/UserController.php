@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Data\PostData;
-use App\Http\Resources\AllPostsCollection;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\LaravelData\DataCollection;
 
 class UserController extends Controller
 {
@@ -17,10 +17,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        $posts = Post::where('user_id', auth()
+            ->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->with(['comments.user', 'user'])
+            ->get();
         return Inertia::render('User', [
             'user' => User::find(auth()->user()->id),
-            'posts' => PostData::collect($posts)
+            'posts' => PostData::collect($posts, DataCollection::class)->include('comments.user', 'user')
         ]);
     }
 
@@ -29,10 +33,13 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $posts = Post::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        $posts = Post::where('user_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->with(['comments.user', 'user'])
+            ->get();
         return Inertia::render('User', [
             'user' => User::find($id),
-            'posts' => PostData::collect($posts),
+            'posts' => PostData::collect($posts, DataCollection::class)->include('comments.user', 'user'),
         ]);
     }
 
