@@ -50,6 +50,7 @@ const createComment = () => {
             >
                 <input
                     v-model="form.comment"
+                    @keydown.enter.prevent="createComment"
                     type="text"
                     class="mx-1 w-full border-none bg-[#EFF2F5] p-0 text-sm placeholder-[#646768] ring-0 focus:ring-0"
                     placeholder="Write a public comment..."

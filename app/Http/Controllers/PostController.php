@@ -20,7 +20,7 @@ class PostController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         return Inertia::render('Posts', [
-            'posts' => PostData::collect($posts, DataCollection::class)->include('comments.user', 'user')
+            'posts' => PostData::collect($posts)
         ]);
     }
 

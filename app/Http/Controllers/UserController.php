@@ -24,7 +24,7 @@ class UserController extends Controller
             ->get();
         return Inertia::render('User', [
             'user' => User::find(auth()->user()->id),
-            'posts' => PostData::collect($posts, DataCollection::class)->include('comments.user', 'user')
+            'posts' => PostData::collect($posts)
         ]);
     }
 
@@ -39,7 +39,7 @@ class UserController extends Controller
             ->get();
         return Inertia::render('User', [
             'user' => User::find($id),
-            'posts' => PostData::collect($posts, DataCollection::class)->include('comments.user', 'user'),
+            'posts' => PostData::collect($posts),
         ]);
     }
 

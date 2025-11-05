@@ -2,27 +2,21 @@
 
 namespace App\Data;
 
-use App\Models\Comment;
-use Spatie\LaravelData\Lazy;
+use Spatie\LaravelData\Attributes\AutoWhenLoadedLazy;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Lazy;
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
-/**
- * @param Lazy|Collection<int, UserData> $user
- */
+#[TypeScript]
 class CommentData extends Data
 {
+    /**
+     * @param Lazy|Collection<int, UserData> $user
+     */
     public function __construct(
         public int $id,
         public string $text,
+        #[AutoWhenLoadedLazy]
         public Lazy|UserData $user,
     ) {}
-
-    public static function fromModel(Comment $comment): self
-    {
-        return new self(
-            $comment->id,
-            $comment->text,
-            Lazy::create(fn() => UserData::from($comment->user))
-        );
-    }
 }

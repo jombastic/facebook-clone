@@ -3,10 +3,12 @@
 namespace App\Data;
 
 use Illuminate\Database\Eloquent\Collection;
+use Spatie\LaravelData\Attributes\AutoWhenLoadedLazy;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Lazy;
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
-/** @typescript */
+#[TypeScript]
 class UserData extends Data
 {
     /**
@@ -17,17 +19,7 @@ class UserData extends Data
         public string $name,
         public string $email,
         public string $image,
-        public Lazy|Collection|null $friends = null
+        #[AutoWhenLoadedLazy]
+        public Lazy|Collection $friends
     ) {}
-
-    public static function fromModel(\App\Models\User $user): self
-    {
-        return new self(
-            $user->id,
-            $user->name,
-            $user->email,
-            $user->image,
-            Lazy::create(fn() => FriendData::collect($user->friends))
-        );
-    }
 }

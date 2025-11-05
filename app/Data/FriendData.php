@@ -6,8 +6,9 @@ use Carbon\Carbon;
 use Spatie\LaravelData\Attributes\WithTransformer;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer;
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
-/** @typescript */
+#[TypeScript]
 class FriendData extends Data
 {
     public function __construct(
@@ -18,15 +19,4 @@ class FriendData extends Data
         #[WithTransformer(DateTimeInterfaceTransformer::class, format: ' M D Y')]
         public Carbon $created_at
     ) {}
-
-    public static function fromModel(\App\Models\Friend $friend): self
-    {
-        return new self(
-            $friend->id,
-            $friend->firstname,
-            $friend->lastname,
-            $friend->picId,
-            $friend->created_at
-        );
-    }
 }
