@@ -14,12 +14,10 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PostService $postService)
     {
-        $posts = (new PostService)->getAllPosts();
-
         return Inertia::render('Posts', [
-            'posts' => PostData::collect($posts)
+            'posts' => fn() => PostData::collect($postService->getAllPosts()),
         ]);
     }
     /**

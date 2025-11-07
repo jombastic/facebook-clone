@@ -50,6 +50,7 @@ const crop = () => {
     data.append("top", coordinates.top);
 
     router.post(route("user.updateImage"), data, {
+        only: ['user'],
         preserveState: false,
     });
 

@@ -18,6 +18,7 @@ const form = reactive({
 
 const createPost = () => {
     router.post(route("post.store"), form, {
+        only: ['posts'],
         forceFormData: true,
         preserveScroll: true,
         onError: (errors) => {

@@ -11,6 +11,7 @@ const loggedUser = usePage().props.auth.user;
 
 const deleteComment = (id) => {
     router.delete(route("comment.destroy", { id: id }), {
+        only: ['posts'],
         preserveScroll: true,
     });
 };

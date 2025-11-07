@@ -45,7 +45,7 @@ class PostService
     /**
      * Get posts for the logged in user.
      */
-    public function getPostsForCurrentUser(): Model
+    public function getPostsForCurrentUser(): Collection
     {
         return auth()->user()->load([
             'posts' => function ($query) {
@@ -54,6 +54,6 @@ class PostService
             'posts.user:id,name,image',
             'posts.comments:id,text,post_id,user_id',
             'posts.comments.user:id,name,image',
-        ]);
+        ])->posts;
     }
 }

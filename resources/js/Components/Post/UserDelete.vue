@@ -20,6 +20,7 @@ const isUser = () => {
 
 const deletePost = (id) => {
     router.delete(route("post.destroy", { id: id }), {
+        only: ['posts'],
         preserveScroll: true,
     });
 };

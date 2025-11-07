@@ -21,11 +21,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = $this->postService->getPostsForCurrentUser();
-
         return Inertia::render('User', [
-            'user' => UserData::from($user),
-            'posts' => PostData::collect($user->posts)
+            'user' => fn() => UserData::from(auth()->user()),
+            'posts' => fn() => PostData::collect($this->postService->getPostsForCurrentUser())
         ]);
     }
 
@@ -34,11 +32,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $posts = $this->postService->getPostsForUser((int) $id);
-
         return Inertia::render('User', [
-            'user' => UserData::from(User::find($id)),
-            'posts' => PostData::collect($posts),
+            'user' => fn() => UserData::from(User::find($id)),
+            'posts' => fn() => PostData::collect($this->postService->getPostsForUser((int) $id)),
         ]);
     }
 
