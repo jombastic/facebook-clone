@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Data\PostData;
 use App\Models\Post;
 use App\Services\ImageService;
+use App\Services\PostService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Spatie\LaravelData\DataCollection;
 
 class PostController extends Controller
 {
@@ -16,14 +16,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['comments.user', 'user'])
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $posts = (new PostService)->getAllPosts();
+
         return Inertia::render('Posts', [
             'posts' => PostData::collect($posts)
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      */

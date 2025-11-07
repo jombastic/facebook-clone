@@ -39,9 +39,12 @@ const deleteComment = (id) => {
                 </Link>
                 <div class="flex w-full items-center">
                     <div
-                        class="flex w-full items-center rounded-lg bg-[#EFF2F5] p-2 text-xs"
+                        class="w-full rounded-lg bg-[#EFF2F5] p-2"
                     >
-                        {{ comment.text }}
+                        <div class="text-[0.9375rem] text-xs/4 font-extrabold">
+                            {{ comment.user.name }}
+                        </div>
+                        <div class="text-sm">{{ comment.text }}</div>
                     </div>
                     <button
                         v-if="loggedUser.id === comment.user.id"

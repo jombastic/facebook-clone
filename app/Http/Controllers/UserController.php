@@ -3,28 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Data\PostData;
+use App\Data\UserData;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\ImageService;
+use App\Services\PostService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\LaravelData\DataCollection;
 
 class UserController extends Controller
 {
+    public function __construct(public PostService $postService) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $posts = Post::where('user_id', auth()
-            ->user()->id)
-            ->orderBy('created_at', 'desc')
-            ->with(['comments.user', 'user'])
-            ->get();
+        $user = $this->postService->getPostsForCurrentUser();
+
         return Inertia::render('User', [
-            'user' => User::find(auth()->user()->id),
-            'posts' => PostData::collect($posts)
+            'user' => UserData::from($user),
+            'posts' => PostData::collect($user->posts)
         ]);
     }
 
@@ -33,12 +34,10 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $posts = Post::where('user_id', $id)
-            ->orderBy('created_at', 'desc')
-            ->with(['comments.user', 'user'])
-            ->get();
+        $posts = $this->postService->getPostsForUser((int) $id);
+
         return Inertia::render('User', [
-            'user' => User::find($id),
+            'user' => UserData::from(User::find($id)),
             'posts' => PostData::collect($posts),
         ]);
     }
