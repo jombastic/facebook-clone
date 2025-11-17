@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Data\PostData;
 use App\Data\UserData;
-use App\Models\Post;
 use App\Models\User;
 use App\Services\ImageService;
 use App\Services\PostService;
@@ -23,7 +22,9 @@ class UserController extends Controller
     {
         return Inertia::render('User', [
             'user' => fn() => UserData::from(auth()->user()),
-            'posts' => fn() => PostData::collect($this->postService->getPostsForCurrentUser())
+            'posts' => fn() => PostData::collect($this->postService->getPostsForCurrentUser()),
+            'latestPost' => Inertia::optional(fn () => PostData::from($this->postService->getLatestPostForCurrentUser())),
+            'deletedPostId' => Inertia::optional(fn () => session('deletedPostId'))
         ]);
     }
 
@@ -35,6 +36,8 @@ class UserController extends Controller
         return Inertia::render('User', [
             'user' => fn() => UserData::from(User::find($id)),
             'posts' => fn() => PostData::collect($this->postService->getPostsForUser((int) $id)),
+            'latestPost' => Inertia::optional(fn () => PostData::from($this->postService->getLatestPostForUser((int) $id))),
+            'deletedPostId' => Inertia::optional(fn () => session('deletedPostId'))
         ]);
     }
 

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { usePage } from "@inertiajs/vue3";
 import Magnify from "vue-material-design-icons/Magnify.vue";
 import VideoImage from "vue-material-design-icons/VideoImage.vue";
@@ -10,7 +10,7 @@ const searchIcons = [
     { component: DotsHorizontal, size: 23, fillColor: "#050505" },
 ];
 
-const friends = usePage().props.auth.user?.friends;
+const friends: App.Data.FriendData[] = usePage().props.auth.user?.friends;
 </script>
 
 <template>

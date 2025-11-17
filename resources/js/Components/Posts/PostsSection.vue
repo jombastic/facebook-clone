@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { usePage } from "@inertiajs/vue3";
 
 import Post from "@/Components/Post/Post.vue";
@@ -9,8 +9,8 @@ const CreatePostBox = defineAsyncComponent(
     () => import("@/Components/CreatePostBox.vue"),
 );
 
-defineProps({ posts: Object });
-const user = usePage().props.auth.user;
+defineProps<{ posts: App.Data.PostData[] }>();
+const user: App.Data.UserData = usePage().props.auth.user;
 </script>
 
 <template>

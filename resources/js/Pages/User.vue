@@ -1,8 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { Head } from "@inertiajs/vue3";
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent, toRef } from "vue";
 import MainNavLayout from "@/Layouts/MainNavLayout.vue";
-import PostsSection from "@/Components/Posts/PostsSection.vue";
+import PostsSection from "@/Components/User/PostsSection.vue";
+import { usePosts } from "@/composables";
 
 const TopSection = defineAsyncComponent(
     () => import("@/Components/User/TopSection.vue"),
@@ -11,7 +12,18 @@ const LeftSection = defineAsyncComponent(
     () => import("@/Components/User/LeftSection.vue"),
 );
 
-defineProps({ posts: Object, user: Object });
+const props = defineProps<{
+    posts: App.Data.PostData[];
+    user: App.Data.UserData;
+    latestPost?: App.Data.PostData | null;
+    deletedPostId?: number;
+}>();
+
+const { allPosts } = usePosts(
+    props.posts,
+    () => props.latestPost,
+    () => props.deletedPostId
+);
 </script>
 
 <template>
@@ -23,8 +35,8 @@ defineProps({ posts: Object, user: Object });
             <div
                 class="mx-auto h-[calc(100%-56px)] w-full max-w-[1100px] justify-between px-2 md:flex md:px-0"
             >
-                <LeftSection :posts="posts" />
-                <PostsSection :posts="posts" />
+                <LeftSection :posts="allPosts" />
+                <PostsSection :user="user" :posts="allPosts" />
             </div>
         </div>
     </MainNavLayout>

@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import ProfileInfo from "./ProfileInfo.vue";
 
-defineProps({ user: Object });
+defineProps<{ user: App.Data.UserData }>();
 const tabs = ["Posts", "About", "Friends", "Videos", "Photos", "Check-ins"];
 </script>
 

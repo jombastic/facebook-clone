@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 const actions = ["Add Bio", "Edit details", "Add hobbies", "Add feature"];
-defineProps({ posts: Object });
+defineProps<{ posts: App.Data.PostData[] }>();
 
 import { useGeneralStore } from "@/stores/general";
 import { storeToRefs } from "pinia";
@@ -25,11 +25,11 @@ const { isImageDisplay } = storeToRefs(useGeneral);
         <div class="mt-4 rounded-lg bg-white p-3 shadow-lg">
             <div class="pb-2 text-xl font-extrabold">Photos</div>
             <div class="flex w-full flex-wrap items-center justify-start">
-                <template v-for="photo in posts" :key="photo">
+                <template v-for="post in posts" :key="post">
                     <img
-                        v-if="photo.image"
-                        @click="isImageDisplay = photo.image"
-                        :src="photo.image"
+                        v-if="post.image"
+                        @click="isImageDisplay = post.image"
+                        :src="post.image"
                         class="aspect-square w-1/3 cursor-pointer rounded-lg object-cover p-1"
                     />
                 </template>

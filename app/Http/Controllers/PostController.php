@@ -18,6 +18,8 @@ class PostController extends Controller
     {
         return Inertia::render('Posts', [
             'posts' => fn() => PostData::collect($postService->getAllPosts()),
+            'latestPost' => Inertia::optional(fn () => PostData::from($postService->getLatestPost())),
+            'deletedPostId' => Inertia::optional(fn () => session('deletedPostId'))
         ]);
     }
     /**
@@ -53,5 +55,7 @@ class PostController extends Controller
         }
 
         $post->delete();
+
+        return back()->with('deletedPostId', $id);
     }
 }

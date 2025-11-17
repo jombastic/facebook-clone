@@ -1,13 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import UserDelete from "./UserDelete.vue";
 import Text from "./Text.vue";
 import Likes from "./Likes.vue";
 
-const props = defineProps({
-    user: Object,
-    post: Object,
-    comments: Object,
-});
+const props = defineProps<{
+    user?: App.Data.UserData,
+    post: App.Data.PostData,
+    comments?: App.Data.CommentData[],
+}>();
 </script>
 
 <template>

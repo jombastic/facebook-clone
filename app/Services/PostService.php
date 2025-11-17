@@ -33,6 +33,14 @@ class PostService
     }
 
     /**
+     * Get all posts.
+     */
+    public function getLatestPost(): ?Post
+    {
+        return $this->buildBaseQuery()->orderBy('created_at', 'desc')->first();
+    }
+
+    /**
      * Get posts for a specific user.
      */
     public function getPostsForUser(int $userId): Collection
@@ -40,6 +48,17 @@ class PostService
         return $this->buildBaseQuery()
             ->where('user_id', $userId)
             ->get();
+    }
+
+    /**
+     * Get posts for a specific user.
+     */
+    public function getLatestPostForUser(int $userId): ?Post
+    {
+        return $this->buildBaseQuery()
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->first();
     }
 
     /**
@@ -55,5 +74,21 @@ class PostService
             'posts.comments:id,text,post_id,user_id',
             'posts.comments.user:id,name,image',
         ])->posts;
+    }
+
+    /**
+     * Get the latest post for the logged in user.
+     */
+    public function getLatestPostForCurrentUser(): ?Post
+    {
+        return auth()->user()
+            ->posts()
+            ->with([
+                'user:id,name,image',
+                'comments:id,text,post_id,user_id',
+                'comments.user:id,name,image',
+            ])
+            ->orderBy('created_at', 'desc')
+            ->first();
     }
 }

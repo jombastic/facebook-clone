@@ -1,26 +1,26 @@
-<script setup>
+<script setup lang="ts">
 import { router, usePage } from "@inertiajs/vue3";
 import { toRefs } from "vue";
 
 import Delete from "vue-material-design-icons/Delete.vue";
 import AccountMultiple from "vue-material-design-icons/AccountMultiple.vue";
 
-const props = defineProps({
-    user: Object,
-    post: Object,
-});
+const props = defineProps<{
+    user?: App.Data.UserData,
+    post: App.Data.PostData,
+}>();
 
 const { post, user } = toRefs(props);
 
 const loggedUser = usePage().props.auth.user;
 
 const isUser = () => {
-    router.get(route("user.show", { id: user.value.id }));
+    router.get(route("user.show", { id: user.value?.id }));
 };
 
-const deletePost = (id) => {
+const deletePost = (id: number) => {
     router.delete(route("post.destroy", { id: id }), {
-        only: ['posts'],
+        only: ['deletedPostId'],
         preserveScroll: true,
     });
 };
@@ -30,14 +30,14 @@ const deletePost = (id) => {
     <div class="flex items-center px-3 py-3">
         <button @click="isUser" class="mr-2">
             <img
-                :src="user.image"
+                :src="user?.image"
                 class="ml-1 max-h-[2.625rem] min-w-[2.625rem] rounded-full"
             />
         </button>
         <div class="flex w-full items-center justify-between rounded-full p-2">
             <div>
                 <div class="text-[0.9375rem] font-extrabold">
-                    {{ user.name }}
+                    {{ user?.name }}
                 </div>
                 <div class="flex items-center text-xs text-gray-600">
                     {{ post.created_at }}
@@ -50,7 +50,7 @@ const deletePost = (id) => {
             </div>
             <div class="flex items-center">
                 <button
-                    v-if="loggedUser.id === post.user.id"
+                    v-if="loggedUser.id === post.user?.id"
                     @click="deletePost(post.id)"
                     class="cursor-pointer rounded-full p-1.5 hover:bg-[#F2F2F2]"
                 >

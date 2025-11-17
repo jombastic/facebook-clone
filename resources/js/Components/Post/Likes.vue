@@ -1,14 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import ThumbUp from "vue-material-design-icons/ThumbUp.vue";
 
 import CreateComment from "./CreateComment.vue";
 import Comments from "./Comments.vue";
 
-const props = defineProps({
-    user: Object,
-    post: Object,
-    comments: Object,
-});
+const props = defineProps<{
+    user?: App.Data.UserData,
+    post: App.Data.PostData,
+    comments?: App.Data.CommentData[],
+}>();
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const props = defineProps({
         <div class="flex items-center justify-between border-b py-3">
             <ThumbUp fillColor="#1D72E2" :size="16" />
             <div class="tex-sm font-semibold text-gray-600">
-                {{ comments.length }} comments
+                {{ comments?.length }} comments
             </div>
         </div>
 

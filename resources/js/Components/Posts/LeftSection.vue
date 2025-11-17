@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Head, Link, usePage } from "@inertiajs/vue3";
 
 import TelevisionPlay from "vue-material-design-icons/TelevisionPlay.vue";
@@ -9,7 +9,7 @@ import Flag from "vue-material-design-icons/Flag.vue";
 import ClockTimeTwoOutline from "vue-material-design-icons/ClockTimeTwoOutline.vue";
 import Restore from "vue-material-design-icons/Restore.vue";
 
-const user = usePage().props.auth.user;
+const user: App.Data.UserData = usePage().props.auth.user;
 
 const sidebarItems = [
     { text: "Friends", icon: AccountMultiple, color: "#5BD7C6" },

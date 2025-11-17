@@ -1,17 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import Delete from "vue-material-design-icons/Delete.vue";
 
 import { Link, router, usePage } from "@inertiajs/vue3";
 
-defineProps({
-    comments: Object,
-});
+defineProps<{
+    comments?: App.Data.CommentData[],
+}>();
 
 const loggedUser = usePage().props.auth.user;
 
-const deleteComment = (id) => {
+const deleteComment = (id: number) => {
     router.delete(route("comment.destroy", { id: id }), {
-        only: ['posts'],
+        only: ['latestPost'],
         preserveScroll: true,
     });
 };
@@ -25,16 +25,16 @@ const deleteComment = (id) => {
     >
         <div
             v-for="comment in comments"
-            :key="comment"
+            :key="comment.id"
             class="flex items-center justify-between pb-2"
         >
             <div class="mb-1 flex w-full items-center">
                 <Link
-                    :href="route('user.show', { id: comment.user.id })"
+                    :href="route('user.show', { id: comment.user?.id })"
                     class="mr-2"
                 >
                     <img
-                        :src="comment.user.image"
+                        :src="comment.user?.image"
                         class="ml-1 max-h-[2.25rem] min-w-[2.25rem] rounded-full"
                     />
                 </Link>
@@ -43,12 +43,12 @@ const deleteComment = (id) => {
                         class="w-full rounded-lg bg-[#EFF2F5] p-2"
                     >
                         <div class="text-[0.9375rem] text-xs/4 font-extrabold">
-                            {{ comment.user.name }}
+                            {{ comment.user?.name }}
                         </div>
                         <div class="text-sm">{{ comment.text }}</div>
                     </div>
                     <button
-                        v-if="loggedUser.id === comment.user.id"
+                        v-if="loggedUser.id === comment.user?.id"
                         @click="deleteComment(comment.id)"
                         class="ml-2 cursor-pointer rounded-full p-1.5 hover:bg-[#F2F2F2]"
                     >

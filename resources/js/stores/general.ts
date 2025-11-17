@@ -4,7 +4,7 @@ export const useGeneralStore = defineStore("general", {
     state: () => ({
         isPostOverlay: false,
         isCropperModal: false,
-        isImageDisplay: null,
+        isImageDisplay: null as string | null,
     }),
     // persist: true,
 });

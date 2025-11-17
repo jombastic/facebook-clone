@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Link, router, usePage } from "@inertiajs/vue3";
 import { reactive, toRefs } from "vue";
 
@@ -8,10 +8,10 @@ const loggedUser = usePage().props.auth.user;
 
 const form = reactive({ comment: null });
 
-const props = defineProps({
-    user: Object,
-    post: Object,
-});
+const props = defineProps<{
+    user?: App.Data.UserData,
+    post: App.Data.PostData,
+}>();
 
 const { post } = toRefs(props);
 

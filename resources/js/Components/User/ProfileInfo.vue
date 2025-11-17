@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Link, usePage } from "@inertiajs/vue3";
 import { useGeneralStore } from "@/stores/general";
 import { storeToRefs } from "pinia";
@@ -8,7 +8,7 @@ import Pen from "vue-material-design-icons/Pen.vue";
 const useGeneral = useGeneralStore();
 const { isCropperModal } = storeToRefs(useGeneral);
 
-defineProps({ user: Object });
+defineProps<{ user: App.Data.UserData }>();
 const loggedUser = usePage().props.auth.user;
 </script>
 

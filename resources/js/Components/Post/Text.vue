@@ -1,12 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { useGeneralStore } from "@/stores/general";
 import { storeToRefs } from "pinia";
 const useGeneral = useGeneralStore();
 const { isImageDisplay } = storeToRefs(useGeneral);
 
-const props = defineProps({
-    post: Object,
-});
+const props = defineProps<{
+    post: App.Data.PostData,
+}>();
 </script>
 
 <template>
