@@ -5,6 +5,7 @@ namespace App\Data;
 use Spatie\LaravelData\Attributes\AutoWhenLoadedLazy;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Lazy;
+use Spatie\LaravelData\Optional;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
@@ -17,6 +18,8 @@ class CommentData extends Data
         public int $id,
         public string $text,
         #[AutoWhenLoadedLazy]
-        public Lazy|UserData $user,
+        public Lazy|Optional|UserData $user,
+        public ?int $userId,
+        public ?int $postId
     ) {}
 }

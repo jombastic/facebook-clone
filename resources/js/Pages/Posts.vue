@@ -18,12 +18,16 @@ const props = defineProps<{
     posts: App.Data.PostData[];
     latestPost?: App.Data.PostData | null;
     deletedPostId?: number;
+    newComment?: App.Data.CommentData
+    deletedComment?: App.Data.CommentData
 }>();
 
 const { allPosts } = usePosts(
     props.posts,
     () => props.latestPost,
-    () => props.deletedPostId
+    () => props.deletedPostId,
+    () => props.newComment,
+    () => props.deletedComment
 );
 </script>
 

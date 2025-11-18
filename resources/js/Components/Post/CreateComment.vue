@@ -23,7 +23,7 @@ const createComment = () => {
             text: form.comment,
         },
         {
-            only: ['posts'],
+            only: ['newComment'],
             preserveScroll: true,
             onSuccess: () => {
                 // Reset the form after successful submission

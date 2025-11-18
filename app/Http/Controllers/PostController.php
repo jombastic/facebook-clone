@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\CommentData;
 use App\Data\PostData;
 use App\Models\Post;
 use App\Services\ImageService;
@@ -19,7 +20,9 @@ class PostController extends Controller
         return Inertia::render('Posts', [
             'posts' => fn() => PostData::collect($postService->getAllPosts()),
             'latestPost' => Inertia::optional(fn () => PostData::from($postService->getLatestPost())),
-            'deletedPostId' => Inertia::optional(fn () => session('deletedPostId'))
+            'deletedPostId' => Inertia::optional(fn () => session('deletedPostId')),
+            'newComment' => Inertia::optional(fn () => CommentData::from(session('newComment'))),
+            'deletedComment' => Inertia::optional(fn () => CommentData::from(session('deletedComment'))),
         ]);
     }
     /**

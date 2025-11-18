@@ -19,6 +19,8 @@ class CommentController extends Controller
         $comment->post_id = $request->input('post_id');
         $comment->text = $request->input('text');
         $comment->save();
+
+        return back()->with('newComment', $comment->load('user'));
     }
 
     /**
@@ -28,5 +30,7 @@ class CommentController extends Controller
     {
         $comment = Comment::find($id);
         $comment->delete();
+
+        return back()->with('deletedComment', $comment);
     }
 }
