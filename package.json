@@ -23,6 +23,7 @@
         "vue-tsc": "^2.0.24"
     },
     "dependencies": {
+        "laravel-precognition-vue-inertia": "^0.7.3",
         "pinia": "^2.1.7",
         "pinia-plugin-persistedstate": "^3.2.1",
         "qs-esm": "^7.0.2",

@@ -4,13 +4,13 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
-    Route::post('/post', [PostController::class, 'store'])->name('post.store');
+    Route::post('/post', [PostController::class, 'store'])
+        ->middleware([HandlePrecognitiveRequests::class])->name('post.store');
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
 
     Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
@@ -25,4 +25,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

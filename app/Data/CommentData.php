@@ -15,11 +15,19 @@ class CommentData extends Data
      * @param Lazy|Collection<int, UserData> $user
      */
     public function __construct(
-        public int $id,
-        public string $text,
+        public Optional|null|int $id,
+        public Optional|string $text,
         #[AutoWhenLoadedLazy]
         public Lazy|Optional|UserData $user,
-        public ?int $userId,
-        public ?int $postId
+        public Optional|null|int $userId,
+        public Optional|null|int $postId
     ) {}
+
+    public static function rules(): array
+    {
+        return [
+            'text' => ['required', 'string'],
+            'postId' => ['required', 'integer'],
+        ];
+    }
 }

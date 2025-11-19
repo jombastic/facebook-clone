@@ -8,6 +8,7 @@ use Spatie\LaravelData\Attributes\AutoWhenLoadedLazy;
 use Spatie\LaravelData\Attributes\WithTransformer;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Lazy;
+use Spatie\LaravelData\Optional;
 use Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -19,14 +20,22 @@ class PostData extends Data
      * @param Lazy|Collection<int, CommentData> $comments
      */
     public function __construct(
-        public int $id,
+        public Optional|int $id,
         public string $text,
         public ?string $image,
         #[WithTransformer(DateTimeInterfaceTransformer::class, format: ' M D Y')]
-        public Carbon $created_at,
+        public Optional|Carbon $created_at,
         #[AutoWhenLoadedLazy]
-        public Lazy|UserData $user,
+        public Lazy|Optional|UserData $user,
         #[AutoWhenLoadedLazy]
-        public Lazy|Collection $comments,
+        public Lazy|Optional|Collection $comments,
     ) {}
+
+    public static function rules(): array
+    {
+        return [
+            'text' => ['required', 'string'],
+            'image' => ['nullable', 'mimes:jpg,jpeg,png'],
+        ];
+    }
 }

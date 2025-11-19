@@ -28,12 +28,9 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Post $post)
+    public function store(PostData $data, Post $post, Request $request)
     {
-        $request->validate(['text' => 'required']);
-
         if ($request->hasFile('image')) {
-            $request->validate(['image' => 'required|mimes:jpg,jpeg,png']);
             $post = (new ImageService)->updateImage($post, $request);
         }
 

@@ -9,7 +9,7 @@ const { text, image, imageDisplay } = storeToRefs(usePost);
 </script>
 
 <template>
-    <div class="max-h-[21.875rem] overflow-auto">
+    <form id="textForm" class="max-h-[21.875rem] overflow-auto">
         <textarea
             v-model="text"
             cols="30"
@@ -29,5 +29,5 @@ const { text, image, imageDisplay } = storeToRefs(usePost);
             />
             <img :src="imageDisplay" class="mx-auto rounded-lg" />
         </div>
-    </div>
+    </form>
 </template>

@@ -1,8 +1,8 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { usePostStore } from "@/stores/post";
-import { reactive } from "vue";
-import { router } from "@inertiajs/vue3";
+import { watch } from "vue";
+import { useForm } from 'laravel-precognition-vue-inertia';
 
 import { useGeneralStore } from "@/stores/general";
 const useGeneral = useGeneralStore();
@@ -11,15 +11,23 @@ const { isPostOverlay } = storeToRefs(useGeneral);
 const usePost = usePostStore();
 const { text, image, imageDisplay, error } = storeToRefs(usePost);
 
-const form = reactive({
-    text,
-    image,
+const form = useForm("post", route("post.store"), {
+    text: text.value ?? "",
+    image: image.value ?? null,
+});
+
+watch(text, (value) => {
+    form.text = value ?? "";
+});
+
+watch(image, (value) => {
+    form.image = value ?? null;
 });
 
 const createPost = () => {
-    router.post(route("post.store"), form, {
-        only: ['latestPost'],
-        forceFormData: true,
+    console.log(form.image)
+    form.submit({
+        only: ["latestPost"],
         preserveScroll: true,
         onError: (errors) => {
             errors && errors.text ? (error.value = errors.text) : "";
@@ -45,7 +53,12 @@ const createPost = () => {
         </div>
     </div>
     <button
-        @click="createPost"
+        @click="
+            form.validate({
+                only: ['text', 'image'],
+                onSuccess: (response) => createPost(),
+            })
+        "
         class="mt-3 w-full rounded-lg bg-blue-500 p-1.5 font-extrabold text-white hover:bg-blue-600"
     >
         Post
